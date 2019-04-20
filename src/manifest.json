@@ -1,0 +1,27 @@
+{
+  "name": "webdevkit",
+  "version": "1.0.0",
+  "description": "Tools to facilitate web development",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/wdk16.png",
+      "32": "images/wdk32.png",
+      "48": "images/wdk48.png",
+      "128": "images/wdk128.png"
+    }
+  },
+  "icons": {
+    "16": "images/wdk16.png",
+    "32": "images/wdk32.png",
+    "48": "images/wdk48.png",
+    "128": "images/wdk128.png"
+  },
+  "manifest_version": 2
+}
