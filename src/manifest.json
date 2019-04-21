@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Tools to facilitate web development",
   "permissions": ["activeTab", "declarativeContent", "storage"],
-
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "options_page": "options.html",
   "browser_action": {
     "default_popup": "popup.html",
