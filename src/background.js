@@ -1,13 +1,28 @@
 // chrome.storage.local.clear();
 
 
-function getSizeObj(fW) {
-  return {
-    left: -fW,
-    top: 0,
-    width: (screen.availWidth / 2) + (2 * fW),
-    height: screen.availHeight + fW
-  };
+function getOptsObj(frame, edge, size) {
+  if (size === 'half') {
+    switch (edge) {
+      case 'left':
+        return {
+          left: -frame,
+          top: -frame,
+          width: (screen.availWidth / 2) + (2 * frame),
+          height: screen.availHeight + (2 * frame)
+        };
+      case 'right':
+        return {
+          left: (screen.availWidth / 2) - frame + 1,
+          top: -frame,
+          width: (screen.availWidth / 2) + (2 * frame),
+          height: screen.availHeight + (2 * frame)
+        };
+    }
+  }
+
+
+
 };
 
 
@@ -22,13 +37,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     console.log(data.frame);
     if (data.frame) {
       console.log('frame known');
-      chrome.windows.update(msg.win.id, getSizeObj(data.frame));
+      chrome.windows.update(msg.win.id, getOptsObj(data.frame, msg.edge, msg.size));
     } else {
       console.log('frame unknown');
       chrome.windows.update(msg.win.id, maxObj, function(maxWin) {
         const frameWidth = (maxWin.width - screen.availWidth) / 2;
         chrome.storage.local.set({frame: frameWidth}, function() {
-          chrome.windows.update(maxWin.id, getSizeObj(frameWidth));
+          chrome.windows.update(maxWin.id, getOptsObj(frameWidth, msg.edge, msg.size));
         });
       });
     }

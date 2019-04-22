@@ -1,8 +1,13 @@
+const buttons = document.querySelectorAll('button');
 
-const button = document.querySelector('button');
-
-button.addEventListener('click', function (e) {
-  chrome.windows.getCurrent(function(thisWin) {
-    chrome.runtime.sendMessage({win: thisWin});
+for (b of buttons) {
+  b.addEventListener('click', function (e) {
+    chrome.windows.getCurrent(function(thisWin) {
+      chrome.runtime.sendMessage({
+        win: thisWin,
+        edge: e.target.dataset.edge,
+        size: e.target.dataset.size
+      });
+    });
   });
-});
+}
