@@ -2,7 +2,7 @@
   "name": "webdevkit",
   "version": "1.0.0",
   "description": "Tools to facilitate web development",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
