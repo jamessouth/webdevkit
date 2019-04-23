@@ -1,6 +1,3 @@
-// chrome.storage.local.clear();
-
-
 function getOptsObj(frame, edge, size) {
   if (size === 'half') {
     switch (edge) {
@@ -20,33 +17,23 @@ function getOptsObj(frame, edge, size) {
         };
     }
   }
-
-
-
 };
-
 
 const maxObj = {
   state: 'maximized'
 };
 
-
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-
   chrome.storage.local.get('frame', function(data) {
-    console.log(data.frame);
     if (data.frame) {
-      console.log('frame known');
       chrome.windows.update(msg.win.id, getOptsObj(data.frame, msg.edge, msg.size));
     } else {
-      console.log('frame unknown');
       chrome.windows.update(msg.win.id, maxObj, function(maxWin) {
         const frameWidth = (maxWin.width - screen.availWidth) / 2;
-        chrome.storage.local.set({frame: frameWidth}, function() {
+        chrome.storage.local.set({ frame: frameWidth }, function() {
           chrome.windows.update(maxWin.id, getOptsObj(frameWidth, msg.edge, msg.size));
         });
       });
     }
   });
-
 });
