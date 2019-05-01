@@ -1,5 +1,6 @@
 {
   "name": "Web Dev Kit",
+  "short_name": "Web Dev Kit",
   "version": "1.0.0",
   "description": "Tools to facilitate web development",
   "permissions": ["storage"],
