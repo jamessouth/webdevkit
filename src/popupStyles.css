@@ -10,7 +10,7 @@ ul{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 90px;
+  width: 100px;
 }
 li{
   display: flex;
@@ -25,11 +25,12 @@ li{
 }
 button{
   height: 32px;
-  width: 30px;
+  width: 34px;
   outline: none;
   border: none;
   cursor: pointer;
-  font-size: 26px;
+  font-size: 28px;
+  background-color: #ddd;
 }
 p{
   color: #8b0000;

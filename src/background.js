@@ -24,16 +24,20 @@ const maxObj = {
 };
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-  chrome.storage.local.get('frame', function(data) {
-    if (data.frame) {
-      chrome.windows.update(msg.win.id, getOptsObj(data.frame, msg.edge, msg.size));
-    } else {
-      chrome.windows.update(msg.win.id, maxObj, function(maxWin) {
-        const frameWidth = (maxWin.width - screen.availWidth) / 2;
-        chrome.storage.local.set({ frame: frameWidth }, function() {
-          chrome.windows.update(maxWin.id, getOptsObj(frameWidth, msg.edge, msg.size));
+  if (msg.os !== 'Win') {
+    chrome.windows.update(msg.win.id, getOptsObj(0, msg.edge, msg.size));
+  } else {
+    chrome.storage.local.get('frame', function(data) {
+      if (data.frame) {
+        chrome.windows.update(msg.win.id, getOptsObj(data.frame, msg.edge, msg.size));
+      } else {
+        chrome.windows.update(msg.win.id, maxObj, function(maxWin) {
+          const frameWidth = (maxWin.width - screen.availWidth) / 2;
+          chrome.storage.local.set({ frame: frameWidth }, function() {
+            chrome.windows.update(maxWin.id, getOptsObj(frameWidth, msg.edge, msg.size));
+          });
         });
-      });
-    }
-  });
+      }
+    });
+  }
 });
